@@ -1,0 +1,54 @@
+{{#> layout}}
+    <div class="mb-8 flex items-center gap-4">
+        <a href="/wilayah" class="p-2 hover:bg-gray-100 rounded-full transition-colors text-gray-500">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        </a>
+        <div>
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900">{{#if isEdit}}Edit Wilayah{{else}}Tambah Wilayah{{/if}}</h1>
+            <p class="text-gray-500 mt-1">Lengkapi informasi blok perkebunan di bawah ini.</p>
+        </div>
+    </div>
+
+    <div class="max-w-2xl bg-white rounded-2xl border border-gray-100 shadow-sm p-8">
+        <form action="{{#if isEdit}}/wilayah/{{item.id}}{{else}}/wilayah{{/if}}" method="POST" class="space-y-6">
+            <!-- Hidden field for edit if needed, but we use different POST routes in controller -->
+            
+            <div class="grid grid-cols-1 gap-6">
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Nama Wilayah</label>
+                    <input type="text" name="nama_wilayah" value="{{item.nama_wilayah}}" required
+                        class="block w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-100 focus:border-green-500 outline-none transition-all"
+                        placeholder="Contoh: Blok Alpha 01">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Luas Hektar</label>
+                        <div class="relative">
+                            <input type="number" step="0.01" name="luas_hektar" value="{{item.luas_hektar}}" required
+                                class="block w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-100 focus:border-green-500 outline-none transition-all"
+                                placeholder="0.00">
+                            <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-gray-400 text-sm">ha</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Lokasi / Koordinat</label>
+                    <input type="text" name="lokasi" value="{{item.lokasi}}"
+                        class="block w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-100 focus:border-green-500 outline-none transition-all"
+                        placeholder="Contoh: Sepinggan, Kalimantan Timur">
+                </div>
+            </div>
+
+            <div class="pt-6 border-t border-gray-50 flex gap-4">
+                <button type="submit" class="px-8 py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl shadow-lg shadow-green-100 transition-all transform active:scale-95">
+                    {{#if isEdit}}Simpan Perubahan{{else}}Simpan Wilayah{{/if}}
+                </button>
+                <a href="/wilayah" class="px-8 py-3 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold rounded-xl transition-all text-center">
+                    Batal
+                </a>
+            </div>
+        </form>
+    </div>
+{{/layout}}

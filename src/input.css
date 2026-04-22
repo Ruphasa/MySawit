@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@source "../views/**/*.hbs";
+
+/* Custom premium Sawit theme colors can be added here */
+@theme {
+  --color-sawit-green-50: #f0fdf4;
+  --color-sawit-green-100: #dcfce7;
+  --color-sawit-green-600: #16a34a;
+  --color-sawit-green-700: #15803d;
+  --color-sawit-green-800: #166534;
+  --color-sawit-green-900: #14532d;
+}

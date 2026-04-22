@@ -1,0 +1,53 @@
+{{#> layout}}
+    <div class="mb-8 flex justify-between items-end">
+        <div>
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900">Laporan Panen</h1>
+            <p class="text-gray-500 mt-1">Histori aktivitas panen harian dari seluruh wilayah.</p>
+        </div>
+        <a href="/laporan/create" class="inline-flex items-center px-4 py-2.5 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl transition-all shadow-md shadow-green-100 gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+            Tambah Laporan
+        </a>
+    </div>
+
+    <!-- Table Section -->
+    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        <table class="w-full text-left">
+            <thead class="bg-gray-50 border-b border-gray-100">
+                <tr>
+                    <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Tanggal</th>
+                    <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Wilayah</th>
+                    <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Hasil Panen</th>
+                    <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Catatan</th>
+                    <th class="px-6 py-4 text-right text-xs font-bold text-gray-500 uppercase tracking-widest">Aksi</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-50">
+                {{#each laporan}}
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="px-6 py-4 text-sm font-bold text-gray-900">{{this.tanggal}}</td>
+                    <td class="px-6 py-4">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                            {{this.wilayah.nama_wilayah}}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-sm font-extrabold text-green-700">{{this.jumlah_panen_ton}} Ton</td>
+                    <td class="px-6 py-4 text-sm text-gray-500 italic">{{#if this.catatan}}"{{this.catatan}}"{{else}}-{{/if}}</td>
+                    <td class="px-6 py-4 text-right">
+                        <form action="/laporan/{{this.id}}/delete" method="POST" class="inline">
+                            <button type="submit" onclick="return confirm('Hapus laporan ini?')" 
+                                class="text-red-400 hover:text-red-600 p-2 rounded-lg hover:bg-red-50 transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {{else}}
+                <tr>
+                    <td colspan="5" class="px-6 py-12 text-center text-gray-400">Belum ada laporan aktivitas panen.</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+{{/layout}}
