@@ -29,6 +29,10 @@ export class LaporanHarianService {
     return this.laporanRepository.save(laporan);
   }
 
+  async update(id: number, data: any): Promise<void> {
+    await this.laporanRepository.update(id, data as object);
+  }
+
   async remove(id: number): Promise<void> {
     await this.laporanRepository.softDelete(id);
   }

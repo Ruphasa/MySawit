@@ -14,6 +14,9 @@ async function bootstrap() {
   app.setBaseViewsDir(join(process.cwd(), 'views'));
   app.setViewEngine('hbs');
   hbs.registerPartials(join(process.cwd(), 'views', 'partials'));
+  hbs.registerHelper('eq', function (a, b) {
+    return a === b;
+  });
 
   app.use(
     session({

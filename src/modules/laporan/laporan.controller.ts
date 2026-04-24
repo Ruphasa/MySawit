@@ -31,12 +31,41 @@ export class LaporanController {
   @View('laporan/form')
   async createForm() {
     const wilayah = await this.wilayahService.findAll();
-    return { wilayah, title: 'Tambah Laporan Panen' };
+    return { wilayah, title: 'Tambah Laporan Panen', isEdit: false };
   }
 
   @Post()
   async create(@Body() data: any) {
     await this.laporanService.create(data);
+    return { redirect: '/laporan' };
+  }
+
+  @Get(':id')
+  @View('laporan/detail')
+  async findOne(@Param('id') id: string) {
+    const data = await this.laporanService.findOne(+id);
+    if (!data) {
+      throw new Error('Laporan tidak ditemukan');
+    }
+    return { item: data, title: `Detail Laporan - ${data.tanggal}` };
+  }
+
+  @Get(':id/edit')
+  @View('laporan/form')
+  async editForm(@Param('id') id: string) {
+    const data = await this.laporanService.findOne(+id);
+    const wilayah = await this.wilayahService.findAll();
+    return {
+      item: data,
+      wilayah,
+      isEdit: true,
+      title: 'Edit Laporan Panen',
+    };
+  }
+
+  @Post(':id')
+  async update(@Param('id') id: string, @Body() data: any) {
+    await this.laporanService.update(+id, data);
     return { redirect: '/laporan' };
   }
 
